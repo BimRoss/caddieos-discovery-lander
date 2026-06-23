@@ -724,6 +724,50 @@
     padding: 6px 12px; border-radius: 999px;
   }
 
+  /* ---------- PULL QUOTE / LENS BANNER ---------- */
+  .lens-banner {
+    background: linear-gradient(135deg, var(--paper-soft) 0%, var(--paper) 100%);
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    padding: 56px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  html[data-theme="dark"] .lens-banner {
+    background: linear-gradient(135deg, #0a130d 0%, #07100b 100%);
+    border-color: var(--hair);
+  }
+  .lens-banner::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--gold-bright));
+  }
+  .lens-banner .inner {
+    display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;
+  }
+  @media (max-width: 760px) { .lens-banner .inner { grid-template-columns: 1fr; gap: 18px; } }
+  .lens-banner .mark {
+    font-family: 'Fraunces', serif; font-size: 88px; font-weight: 800; line-height: 0.8;
+    color: var(--gold); letter-spacing: -0.04em;
+  }
+  @media (max-width: 760px) { .lens-banner .mark { font-size: 56px; } }
+  .lens-banner .ey {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 14px;
+  }
+  html[data-theme="dark"] .lens-banner .ey { color: var(--gold-bright); }
+  .lens-banner .q {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.018em;
+    color: var(--green-deep);
+    max-width: 50ch;
+  }
+  html[data-theme="dark"] .lens-banner .q { color: var(--ink); }
+  .lens-banner .q em { color: var(--gold); font-style: italic; font-weight: 800; }
+  html[data-theme="dark"] .lens-banner .q em { color: var(--gold-bright); }
+
   /* ---------- IMAGE BANDS ---------- */
   .imgband {
     position: relative;
@@ -879,6 +923,16 @@
     </div>
   </div>
 </section>
+
+<div class="lens-banner">
+  <div class="wrap inner">
+    <div class="mark">“</div>
+    <div>
+      <div class="ey">Why this proposal · Why now</div>
+      <p class="q">The 60-day discovery proposal is <em>exactly</em> the right shape for his lens. It produces the de-risking evidence he needs to advocate.</p>
+    </div>
+  </div>
+</div>
 
 <section class="cream">
   <div class="wrap">
