@@ -628,6 +628,56 @@
     padding: 6px 12px; border-radius: 999px;
   }
 
+  /* ---------- IMAGE BANDS ---------- */
+  .imgband {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    color: #fff;
+  }
+  @media (max-width: 760px) { .imgband { height: 300px; } }
+  .imgband .bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .imgband .veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(8,34,21,0.72) 0%, rgba(8,34,21,0.32) 55%, rgba(8,34,21,0) 100%);
+  }
+  .imgband .veil.right {
+    background: linear-gradient(270deg, rgba(8,34,21,0.72) 0%, rgba(8,34,21,0.30) 55%, rgba(8,34,21,0) 100%);
+  }
+  .imgband .veil.bottom {
+    background: linear-gradient(180deg, rgba(8,34,21,0) 30%, rgba(8,34,21,0.55) 75%, rgba(8,34,21,0.85) 100%);
+  }
+  .imgband .copy {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 64px;
+    max-width: 1280px; margin: 0 auto;
+    z-index: 2;
+  }
+  @media (max-width: 760px) { .imgband .copy { padding: 0 20px; } }
+  .imgband .copy.right { align-items: flex-end; text-align: right; }
+  .imgband .copy.bottom { justify-content: flex-end; padding-bottom: 56px; }
+  .imgband .ey {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-bright);
+    margin-bottom: 16px;
+  }
+  .imgband h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.6vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    max-width: 22ch;
+  }
+  .imgband .copy.right h3 { max-width: 22ch; }
+  .imgband .accent { width: 64px; height: 4px; background: var(--gold); margin-top: 22px; }
+  .imgband .copy.right .accent { margin-left: auto; }
+
   /* ---------- CLOSE ---------- */
   .close {
     background: linear-gradient(135deg, var(--green-deep), var(--green-darker));
@@ -765,6 +815,16 @@
     </div>
   </div>
 </section>
+
+<div class="imgband">
+  <div class="bg" style="background-image:url('img-fairway.jpg');"></div>
+  <div class="veil"></div>
+  <div class="copy">
+    <div class="ey">The category we love</div>
+    <h3>The game we grew up with is having its biggest moment in 20 years.</h3>
+    <div class="accent"></div>
+  </div>
+</div>
 
 <section>
   <div class="wrap">
@@ -958,6 +1018,16 @@
   </div>
 </section>
 
+<div class="imgband">
+  <div class="bg" style="background-image:url('img-golfers.jpg');"></div>
+  <div class="veil right"></div>
+  <div class="copy right">
+    <div class="ey">Why we're excited</div>
+    <h3>Demand has outrun the tools. Operators are walking onto the course every day with software from 2008.</h3>
+    <div class="accent"></div>
+  </div>
+</div>
+
 <section class="dark">
   <div class="wrap">
     <div class="section-eyebrow">The 60-day shape</div>
@@ -1120,6 +1190,16 @@
     </div>
   </div>
 </section>
+
+<div class="imgband">
+  <div class="bg" style="background-image:url('img-clubhouse.jpg');"></div>
+  <div class="veil bottom"></div>
+  <div class="copy bottom">
+    <div class="ey">The destination</div>
+    <h3>The first platform to deliver wins the category.</h3>
+    <div class="accent"></div>
+  </div>
+</div>
 
 <section class="close">
   <div class="wrap inner">
