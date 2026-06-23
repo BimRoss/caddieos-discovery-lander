@@ -22,6 +22,7 @@
 <meta name="twitter:image" content="https://caddieos.makeacompany.ai/og-image.jpg">
 
 <meta name="theme-color" content="#0e3d24">
+<script>(function(){try{var t=localStorage.getItem('caddieos-theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e3d24'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23c9a961'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +41,60 @@
     --hair: #e3e3e3;
     --paper: #fafaf7;
     --paper-soft: #f3f1ea;
+    --card-bg: #fff;
+    --card-hover: #fff;
+    --ink-strong: #0e3d24;
   }
+  html[data-theme="dark"] {
+    --ink: #ececec;
+    --muted: #9aa39c;
+    --hair: #1f2a23;
+    --paper: #0b1410;
+    --paper-soft: #07100b;
+    --card-bg: #10181332;
+    --card-hover: #131e17;
+    --ink-strong: #e0c073;
+  }
+  html[data-theme="dark"] body { color: var(--ink); }
+  html[data-theme="dark"] .seg,
+  html[data-theme="dark"] .ts:not(.agent),
+  html[data-theme="dark"] .person:not(.agent),
+  html[data-theme="dark"] .jon-insights .ins,
+  html[data-theme="dark"] details.q,
+  html[data-theme="dark"] .comps-wrap {
+    background: #10181d;
+    border-color: var(--hair);
+  }
+  html[data-theme="dark"] .agenda-row { background: #0e1714; }
+  html[data-theme="dark"] .agenda-row:hover { background: var(--card-hover); }
+  html[data-theme="dark"] .seg .bar { background: #16221c; }
+  html[data-theme="dark"] .stats-strip { background: var(--hair); }
+  html[data-theme="dark"] .stat { background: #10181d; }
+  html[data-theme="dark"] .stat .lab { color: var(--ink); }
+  html[data-theme="dark"] .stat .num { color: var(--gold-bright); }
+  html[data-theme="dark"] .tam-row { border-bottom-color: var(--hair); }
+  html[data-theme="dark"] .tam-row .desc { color: var(--ink); }
+  html[data-theme="dark"] .tam-row .val { color: var(--gold-bright); }
+  html[data-theme="dark"] .tam-rings .ring-tam .rl-val { color: var(--gold-bright); }
+  html[data-theme="dark"] .section-eyebrow { color: var(--gold-bright); }
+  html[data-theme="dark"] section.cream { background: #08110c; }
+  html[data-theme="dark"] .seg .seg-pct { color: var(--gold-bright); }
+  html[data-theme="dark"] .seg .seg-desc { color: var(--muted); }
+  html[data-theme="dark"] .person .bio,
+  html[data-theme="dark"] .ts .ts-bio,
+  html[data-theme="dark"] .jon-insights .ins .body { color: var(--ink); }
+  html[data-theme="dark"] .jon-insights .ins .body b { color: var(--gold-bright); }
+  html[data-theme="dark"] .jon-insights .ins .h { color: var(--gold-bright); }
+  html[data-theme="dark"] .person .role,
+  html[data-theme="dark"] .ts .ts-role { color: var(--gold-bright); }
+  html[data-theme="dark"] .person .cred {
+    background: #10181d; border-color: var(--hair); color: var(--gold-bright);
+  }
+  html[data-theme="dark"] .ts .ts-tag { background: rgba(201,169,97,0.14); color: var(--gold-bright); }
+  html[data-theme="dark"] details.q summary { color: var(--ink); }
+  html[data-theme="dark"] details.q .a { color: var(--ink); }
+  html[data-theme="dark"] details.q .a b { color: var(--gold-bright); }
+  html[data-theme="dark"] details.q[open] { box-shadow: 0 4px 24px rgba(0,0,0,0.35); }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--paper); scroll-behavior: smooth; }
   body {
@@ -67,6 +121,30 @@
   .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(201,169,97,0.18); }
   .nav-meta { color: rgba(255,255,255,0.7); font-size: 13px; letter-spacing: 0.02em; }
   .nav-meta b { color: var(--gold-bright); font-weight: 700; }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  @media (max-width: 540px) { .nav-meta { display: none; } }
+  .theme-toggle {
+    appearance: none; border: 1px solid rgba(201,169,97,0.35);
+    background: rgba(255,255,255,0.04);
+    color: var(--gold-bright);
+    border-radius: 999px;
+    height: 32px;
+    padding: 0 14px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .theme-toggle:hover { background: rgba(201,169,97,0.14); border-color: rgba(201,169,97,0.55); }
+  .theme-toggle .ico { width: 14px; height: 14px; display: inline-block; }
+  .theme-toggle .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-toggle .ico-moon { display: none; }
+  html[data-theme="dark"] .theme-toggle .ico-sun { display: inline-block; }
+  .theme-toggle .lab-light { display: none; }
+  .theme-toggle .lab-dark { display: inline; }
+  html[data-theme="dark"] .theme-toggle .lab-light { display: inline; }
+  html[data-theme="dark"] .theme-toggle .lab-dark { display: none; }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -741,7 +819,14 @@
 <nav>
   <div class="wrap row">
     <div class="brand"><span class="dot"></span><span>CaddieOS · Discovery</span></div>
-    <div class="nav-meta">Working session · <b>June 23, 2026 · 2:00 PM ET</b></div>
+    <div class="nav-right">
+      <div class="nav-meta">Working session · <b>June 23, 2026 · 2:00 PM ET</b></div>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="ico ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="ico ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <span class="lab-dark">Dark</span><span class="lab-light">Light</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -1254,6 +1339,29 @@
   }, { threshold: 0.3 });
 
   document.querySelectorAll('[data-count], [data-w], .reveal').forEach(el => io.observe(el));
+
+  // Light/dark toggle — default light, persisted in localStorage
+  (function () {
+    const KEY = 'caddieos-theme';
+    const html = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const apply = (theme) => {
+      html.setAttribute('data-theme', theme);
+      if (meta) meta.setAttribute('content', theme === 'dark' ? '#07100b' : '#0e3d24');
+      if (btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    };
+    let saved = 'light';
+    try { saved = localStorage.getItem(KEY) || 'light'; } catch (_) {}
+    apply(saved);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = (html.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+        apply(next);
+        try { localStorage.setItem(KEY, next); } catch (_) {}
+      });
+    }
+  })();
 </script>
 
 </body>
