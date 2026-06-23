@@ -52,7 +52,7 @@
   }
   .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 800; letter-spacing: -0.02em; }
   .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-  @media (max-width: 760px) { .wrap { padding: 0 24px; } }
+  @media (max-width: 760px) { .wrap { padding: 0 20px; } }
 
   /* ---------- NAV ---------- */
   nav {
@@ -77,6 +77,7 @@
     padding: 140px 0 100px;
     overflow: hidden;
   }
+  @media (max-width: 760px) { .hero { padding: 110px 0 70px; min-height: auto; } }
   .hero::before {
     content: ""; position: absolute; inset: 0;
     background:
@@ -177,7 +178,8 @@
   }
 
   /* ---------- SECTIONS ---------- */
-  section { padding: 110px 0; }
+  section { padding: 96px 0; }
+  @media (max-width: 760px) { section { padding: 56px 0; } }
   section.dark { background: var(--green-darker); color: #fff; }
   section.cream { background: var(--paper-soft); }
   .section-eyebrow {
@@ -187,7 +189,7 @@
   section.dark .section-eyebrow { color: var(--gold-bright); }
   .section-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(34px, 4vw, 56px);
+    font-size: clamp(30px, 4vw, 52px);
     font-weight: 800;
     letter-spacing: -0.025em;
     line-height: 1.04;
@@ -195,8 +197,11 @@
     max-width: 22ch;
   }
   .section-sub {
-    font-size: 18px; color: var(--muted); margin-top: 18px; max-width: 60ch;
+    font-size: 17px; color: var(--muted); margin-top: 16px; max-width: 60ch;
     line-height: 1.55;
+  }
+  @media (max-width: 540px) {
+    .section-sub { font-size: 15px; }
   }
   section.dark .section-sub { color: rgba(255,255,255,0.7); }
 
@@ -487,11 +492,11 @@
 
   /* ---------- TEAM STRIP (mini cards near top) ---------- */
   .team-strip {
-    margin-top: 56px;
+    margin-top: 48px;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
   }
-  @media (max-width: 900px) { .team-strip { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 540px) { .team-strip { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .team-strip { grid-template-columns: repeat(2, 1fr); margin-top: 32px; } }
+  @media (max-width: 540px) { .team-strip { grid-template-columns: 1fr; gap: 12px; } }
   .ts {
     background: #fff;
     border: 1px solid var(--hair);
@@ -499,6 +504,12 @@
     padding: 24px;
     position: relative;
     overflow: hidden;
+  }
+  @media (max-width: 540px) {
+    .ts { padding: 20px 22px; }
+    .ts .ts-name { font-size: 19px; margin-top: 10px; }
+    .ts .ts-bio { font-size: 12.5px; margin-top: 8px; }
+    .ts .ts-init { width: 38px; height: 38px; font-size: 15px; }
   }
   .ts.agent {
     background: linear-gradient(160deg, var(--green-deep), var(--green-darker));
@@ -691,7 +702,7 @@
     <h1>The next golf platform <span class="gold">isn't a product.</span> It's an operating system.</h1>
     <span class="accent" style="display:block"></span>
     <p class="lede">
-      Sixty days of independent, evidence-led discovery to convert founder conviction into investable evidence — TAM, ICP pull, willingness-to-pay, competitive moat, capital path. Built for the way Dale Ventures already wins.
+      Sixty days of independent, evidence-led discovery. Built to convert founder conviction into investable evidence — TAM, ICP pull, willingness-to-pay, competitive moat, capital path.
     </p>
     <div class="signed">
       <div>
@@ -718,54 +729,9 @@
 
 <section class="cream">
   <div class="wrap">
-    <div class="section-eyebrow">Who's in the room</div>
-    <h2 class="section-title">We did the homework on Jon.</h2>
-    <p class="section-sub">A capital-markets advisor connected to Dale Ventures Canada, not a venture partner. He evaluates deals through a fundability lens — comps, defensibility, TAM, capital path. The 60-day discovery is shaped exactly for the read he runs.</p>
-
-    <div class="jon-grid">
-      <div class="jon-card">
-        <div class="label">JON VARLEY</div>
-        <div class="name">Capital Markets Partner</div>
-        <div class="titles">
-          <span>Moneta Securities</span> · now rolled into the ArcStone Group of Companies (NY · Toronto · Vancouver · Calgary · Miami).<br><br>
-          Co-founder of <span>4Front Advisory</span> (Calgary / Toronto, 2021–2025). Advisor to <span>Silver Birch Growth</span>, Calgary's early-stage tech ecosystem.<br><br>
-          15+ years in capital markets — equity sales, technical analysis, public and private financings.
-        </div>
-        <div class="lens">
-          <div class="lab">His real currency</div>
-          <div class="quote">Direct relationships with the largest pension funds, mutual funds, and hedge funds in Canada and the U.S.</div>
-        </div>
-      </div>
-
-      <div class="jon-insights">
-        <div class="ins-grid">
-          <div class="ins">
-            <div class="h"><span class="num">01</span> The Dale connection</div>
-            <div class="body">External capital-markets / corporate-advisory partner, almost certainly tied to <b>Dale Ventures Canada Inc.</b> Keenan Gentry sits there as VP Investments (CFA, Calgary). The nexus is Calgary's capital-markets scene — Keenan likely uses Jon for deal sourcing, capital-markets-lens diligence, and follow-on capital pathing.</div>
-          </div>
-          <div class="ins">
-            <div class="h"><span class="num">02</span> How he'll evaluate CaddieOS</div>
-            <div class="body">Not a product lens. A <b>capital-markets-readiness lens</b>. He's scoring: is this a fundable story 12–18 months out, what are the comparable exits (Trackman, Arccos, Foresight, Topgolf, GolfNow), is the moat real, could he eventually take this to his institutional network.</div>
-          </div>
-          <div class="ins">
-            <div class="h"><span class="num">03</span> Why our shape fits</div>
-            <div class="body">The 60-day discovery produces exactly the de-risking evidence he'd need to advocate. TAM and ICP pull. Willingness-to-pay tested live against three price models. A named beachhead segment. A 12-month build plan that ranks modules by ARR-per-dollar-built. <b>This is the deliverable that lets him pick up the phone.</b></div>
-          </div>
-          <div class="ins">
-            <div class="h"><span class="num">04</span> One quiet calibration</div>
-            <div class="body">Keenan's LinkedIn title is <b>VP Investments at Dale Ventures Canada Inc.</b>, not CIO. Don't correct anyone in the room, just don't accidentally inflate it. Same for Jon — "advisor to Dale," not "Dale partner."</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
     <div class="section-eyebrow">Your team · four senior consultants</div>
     <h2 class="section-title">Operators. Sellers. A coach. And an AI super-agent.</h2>
-    <p class="section-sub">Three humans with twenty-plus years apiece in golf and capital. Plus an in-engagement AI tier that tier-1 advisory firms wish they had. Bench depth is the unfair advantage.</p>
+    <p class="section-sub">Three humans with twenty-plus years apiece in golf and capital — plus an in-engagement AI tier in scope, day one.</p>
 
     <div class="team-strip">
       <div class="ts">
@@ -804,7 +770,7 @@
   <div class="wrap">
     <div class="section-eyebrow">The market we're moving into</div>
     <h2 class="section-title">Eight straight years of growth. On 2,000 fewer courses.</h2>
-    <p class="section-sub">Demand has outrun the tools. The category leaders are running 2008-era software. That's the opening.</p>
+    <p class="section-sub">Demand outran the tools. Category leaders still run 2008-era software. That's the opening.</p>
 
     <div class="stats-strip">
       <div class="stat">
@@ -854,7 +820,7 @@
   <div class="wrap">
     <div class="section-eyebrow">Market sizing · working hypothesis</div>
     <h2 class="section-title">A $2B market. A $500M U.S. opportunity. A $25M ARR beachhead, in three years.</h2>
-    <p class="section-sub">These bands are deliberately wide. Narrowing them — and naming the segment that gets CaddieOS to the high end of SOM fastest — is what the 60 days are for.</p>
+    <p class="section-sub">Bands intentionally wide. Naming the segment that gets CaddieOS to the high end of SOM fastest is what the 60 days are for.</p>
 
     <div class="market-grid">
       <div class="tam-rings">
@@ -915,7 +881,7 @@
   <div class="wrap">
     <div class="section-eyebrow">Competitive landscape</div>
     <h2 class="section-title">Everyone's solving a slice. Nobody owns the operator's day.</h2>
-    <p class="section-sub">Player-side data, range-and-sim hardware, marketplace tee-times — the category's fragmented along the surface a vendor happens to touch. The whitespace is the operating layer that connects them.</p>
+    <p class="section-sub">The category's fragmented along whatever surface a vendor happens to touch. The whitespace is the operating layer that connects them.</p>
 
     <div class="comps-wrap">
       <div class="chart">
@@ -996,7 +962,7 @@
   <div class="wrap">
     <div class="section-eyebrow">The 60-day shape</div>
     <h2 class="section-title">Four parallel workstreams. One synthesis. Decision-quality evidence.</h2>
-    <p class="section-sub">Independent. Evidence-led. Time-boxed. Every recommendation traces back to interview data, market analysis, or competitive benchmarking — not opinion.</p>
+    <p class="section-sub">Independent. Evidence-led. Time-boxed. Every recommendation traces back to data, not opinion.</p>
 
     <div class="ws-grid">
       <div class="ws">
@@ -1004,28 +970,28 @@
         <div class="ws-tag">WORKSTREAM A</div>
         <div class="ws-title">Module Assessment</div>
         <div class="ws-lead">Lead: Steve</div>
-        <div class="ws-body">Structured teardown of the existing CaddieOS module set against real operator workflows. Keep, cut, expand — scored on operational value, technical maturity, defensibility, effort-to-finish.</div>
+        <div class="ws-body">Teardown of the existing CaddieOS module set against real operator workflows. Keep, cut, expand — scored.</div>
       </div>
       <div class="ws">
         <div class="ws-num">B</div>
         <div class="ws-tag">WORKSTREAM B</div>
         <div class="ws-title">Primary Research</div>
         <div class="ws-lead">Lead: John</div>
-        <div class="ws-body">~20 interviews across PGA pros, shop owners, superintendents, GMs, COOs, multi-course operators. Every guide closes with willingness-to-pay testing against three live price models.</div>
+        <div class="ws-body">~20 interviews across PGA pros, shop owners, supers, GMs, COOs, multi-course operators. Every guide closes with A/B/C willingness-to-pay testing.</div>
       </div>
       <div class="ws">
         <div class="ws-num">C</div>
         <div class="ws-tag">WORKSTREAM C</div>
         <div class="ws-title">Competitive &amp; Market</div>
-        <div class="ws-lead">Lead: John, with Steve on technical</div>
-        <div class="ws-body">Feature-parity matrix, install-base scan, funding posture. Bottoms-up TAM/SAM/SOM. Adjacent integration pressure points and partnership candidates.</div>
+        <div class="ws-lead">Lead: John + Steve</div>
+        <div class="ws-body">Feature-parity matrix, install-base scan, funding posture. Bottoms-up TAM/SAM/SOM. Partnership candidates.</div>
       </div>
       <div class="ws">
         <div class="ws-num">D</div>
         <div class="ws-tag">WORKSTREAM D</div>
         <div class="ws-title">Synthesis</div>
         <div class="ws-lead">Lead: Joint</div>
-        <div class="ws-body">Module keep/cut/expand. Named beachhead. Pricing hypothesis with A/B/C test results. Build-vs-partner-vs-buy on every adjacent capability. 12-month roadmap.</div>
+        <div class="ws-body">Module calls. Named beachhead. Pricing hypothesis with live test results. Build-vs-partner-vs-buy. 12-month roadmap.</div>
       </div>
     </div>
 
@@ -1035,15 +1001,13 @@
           <div class="h-eyebrow">The 4th consultant · AI super-agent</div>
           <h3>Tier-1 advisory firms wish they had this. Ours is in the workflow.</h3>
           <p>
-            The big shops are bolting AI tools onto legacy workflows. We built ours into the engagement. The proposal you read last week, the engagement plan, this lander, the competitive landscape work — all of it ran through Ross, our agent harness. On this engagement Dale gets the full tier: personal CaddieOS-tuned agents for John, Steve, and Dave, plus a shared team agent that holds the whole project context. Included in scope.
+            Tier-1 shops bolt AI onto legacy workflows. We built ours into the engagement. The proposal, this lander, the competitive scan — all of it ran through Ross. On this engagement Dale gets the full tier: personal CaddieOS-tuned agents for John, Steve, Dave, plus a shared team agent. In scope.
           </p>
           <ul>
-            <li><b>Three personal agents.</b> One tuned for John, one for Steve, one for Dave. Each one knows that consultant's voice, focus area, and prior work. Spun up day one of the engagement.</li>
-            <li><b>One shared team agent.</b> Holds the full CaddieOS context — proposal, plan, interviews, competitive scan, every source. Anyone on the team queries it. Anyone on Dale's side could too.</li>
-            <li><b>5–10× the bench depth.</b> Discovery work a tier-1 advisory shop runs in a month, we run in days. Same analytical rigor, dramatically more coverage.</li>
-            <li><b>Evidence-grade.</b> Every claim traceable. Every source cited. Adversarial verification — claims get refuted by independent agents before they ship to you.</li>
-            <li><b>Live, not static.</b> The deliverable is a living artifact. Dale asks a follow-on on day 75; we answer in hours, not weeks.</li>
-            <li><b>No extra cost.</b> The agent tier is in scope. It's not an add-on, it's how we work.</li>
+            <li><b>Three personal agents.</b> Tuned for each consultant — voice, focus area, prior work. Live day one.</li>
+            <li><b>One team agent.</b> Holds the full project context. Anyone on Dale's side can query it too.</li>
+            <li><b>Evidence-grade.</b> Every claim traceable. Adversarial verification before anything ships.</li>
+            <li><b>Live, not static.</b> Day-75 follow-on questions answered in hours, not weeks.</li>
           </ul>
         </div>
         <div class="terminal">
@@ -1076,46 +1040,38 @@
   <div class="wrap">
     <div class="section-eyebrow">Today, 2:00 PM ET</div>
     <h2 class="section-title">What we'd like to cover.</h2>
-    <p class="section-sub">A working session, not a pitch. We're here to surface the right shape — and the right questions — together.</p>
+    <p class="section-sub">A working session, not a pitch. Here to surface the right shape together.</p>
 
     <div class="agenda">
       <div class="agenda-row">
         <div class="ag-num">01</div>
         <div class="ag-body">
-          <div class="ag-title">Calibrate roles &amp; lens</div>
-          <div class="ag-desc">Confirm Jon's hat on this — capital-markets advisor to Dale-Canada, or broader. Aligns how we'd frame the deliverable.</div>
+          <div class="ag-title">Walk the 60-day shape</div>
+          <div class="ag-desc">Four workstreams, deliverables at day 60, pricing tested live, named beachhead.</div>
         </div>
-        <div class="ag-time">~10 min</div>
+        <div class="ag-time">~15 min</div>
       </div>
       <div class="agenda-row">
         <div class="ag-num">02</div>
         <div class="ag-body">
-          <div class="ag-title">Walk the 60-day shape</div>
-          <div class="ag-desc">Four workstreams, deliverables at day 60, pricing-tested by primary data, named beachhead.</div>
-        </div>
-        <div class="ag-time">~15 min</div>
-      </div>
-      <div class="agenda-row">
-        <div class="ag-num">03</div>
-        <div class="ag-body">
           <div class="ag-title">CaddieOS next to xGolf</div>
-          <div class="ag-desc">Dale already has conviction in golf-tech (xGolf ME). CaddieOS as the operator-layer adjacent to an operator-format brand.</div>
+          <div class="ag-desc">Dale's existing golf-tech conviction. CaddieOS as the operator-layer adjacent to format brands.</div>
         </div>
         <div class="ag-time">~10 min</div>
       </div>
       <div class="agenda-row">
-        <div class="ag-num">04</div>
+        <div class="ag-num">03</div>
         <div class="ag-body">
           <div class="ag-title">The capital-markets read</div>
-          <div class="ag-desc">What would discovery need to surface for Jon to bring this to his institutional network with conviction? Comparable exits, defensibility, TAM, ICP.</div>
+          <div class="ag-desc">Comparable exits, defensibility, TAM, ICP. What discovery would need to surface to advance with conviction.</div>
         </div>
         <div class="ag-time">~15 min</div>
       </div>
       <div class="agenda-row">
-        <div class="ag-num">05</div>
+        <div class="ag-num">04</div>
         <div class="ag-body">
           <div class="ag-title">Next steps &amp; deciders</div>
-          <div class="ag-desc">Who at Dale needs to be comfortable with the scope. Path to signature. Kickoff timing.</div>
+          <div class="ag-desc">Who needs to be comfortable. Path to signature. Kickoff timing.</div>
         </div>
         <div class="ag-time">~10 min</div>
       </div>
@@ -1127,14 +1083,14 @@
   <div class="wrap">
     <div class="section-eyebrow">Your consultants</div>
     <h2 class="section-title">Operators first. Sellers second. Senior across both.</h2>
-    <p class="section-sub">Twenty-plus years of distribution, partnership, and capital work across U.S. golf. The operator-and-investor network this engagement actually needs.</p>
+    <p class="section-sub">Twenty-plus years apiece in distribution, partnership, and capital. The operator-and-investor network this engagement needs.</p>
 
     <div class="team-grid">
       <div class="person">
         <div class="initials">JO</div>
         <div class="name">John Osberg</div>
         <div class="role">Primary · Workstreams B + C</div>
-        <div class="bio">A decade building distribution, partnership, and revenue engines across U.S. golf. At PGA of America: 60+ brand-partnership portfolio (Michelob Ultra, Club Car, Oakley, Tito's, Ralph Lauren RLX, Corebridge), $250K+ annual partnership revenue, scaled the PGA veteran program to $220K+ annual funding. Prior: Director at OnCore Golf, $3.5M+ in distribution revenue across national retail and golf-specialty channels.</div>
+        <div class="bio">A decade building distribution, partnership, and revenue engines across U.S. golf. At PGA of America: 60+ brand-partnership portfolio (Michelob Ultra, Club Car, Oakley, Tito's, Ralph Lauren RLX, Corebridge), $250K+ annual partnership revenue. Scaled the PGA veteran program to $220K+ annual funding. Prior: Director at OnCore Golf, $3.5M+ in distribution revenue.</div>
         <div class="creds">
           <div class="cred">PGA of America</div>
           <div class="cred">OnCore Golf</div>
@@ -1145,7 +1101,7 @@
         <div class="initials">SC</div>
         <div class="name">Steve Coulton</div>
         <div class="role">Primary · Workstream A</div>
-        <div class="bio">Co-founder &amp; VP Sales at OnCore Golf — scaled to ~$5M ARR at exit, raised $2M+ in early capital, $20M+ cap base (Charles Schwab among backers). Built a 30+ rep sales network, DICK'S / Golf Galaxy + Wegmans national distribution ($2M+ big-box revenue). Structured PGA Tour / LPGA / LIV ambassador relationships. Today: founder, Coulton Ventures. Prior: Deutsche Bank Commercial Paper Trading. NYU Econ, Men's Varsity Golf.</div>
+        <div class="bio">Co-founder &amp; VP Sales at OnCore Golf — scaled to ~$5M ARR at exit, raised $2M+ in early capital (Charles Schwab among backers). Built a 30+ rep sales network. DICK'S / Golf Galaxy + Wegmans national distribution. PGA Tour / LPGA / LIV ambassador relationships. Founder, Coulton Ventures. Prior: Deutsche Bank.</div>
         <div class="creds">
           <div class="cred">Coulton Ventures</div>
           <div class="cred">OnCore Golf</div>
@@ -1155,8 +1111,8 @@
       <div class="person">
         <div class="initials">DB</div>
         <div class="name">Dave Bisbee</div>
-        <div class="role">Senior Support · Network &amp; Operating Depth</div>
-        <div class="bio">Founder of Back on Course Golf™. Creator of the MOVE™ Framework and the Wired2Win™ performance system. 30+ years of leadership across some of the country's most respected private golf clubs. 50,000+ golfers coached, 50+ PGA pros mentored, advisor to Fortune 500 leaders. Best-selling author. Hosts <em>Conversations from the 19th Hole™</em>. Based in Scottsdale. Brings the operating depth and the network at the primary consultants' direction.</div>
+        <div class="role">Senior Support · Network &amp; Depth</div>
+        <div class="bio">Founder of Back on Course Golf™. Creator of the MOVE™ Framework. 30+ years of leadership across some of the country's most respected private clubs. 50,000+ golfers coached, 50+ PGA pros mentored. Best-selling author. Brings operating depth and network at the primary consultants' direction.</div>
         <div class="creds">
           <div class="cred">Back on Course Golf™</div>
           <div class="cred">30+ years</div>
@@ -1166,12 +1122,11 @@
       <div class="person agent">
         <div class="initials">R</div>
         <div class="name">Ross</div>
-        <div class="role">AI Super-Agent · The 4th Consultant</div>
-        <div class="bio">Built on the BimRoss agent harness. On day one Dale gets a four-agent fleet: a personal agent tuned for each of John, Steve, and Dave — each one knows the consultant's voice, prior work, and focus area — plus a shared CaddieOS team agent that holds the full project context (proposal, plan, interviews, comps, market data). Tier-1 advisory firms have AI bolted onto legacy workflows. We built ours into the engagement itself. Faster coverage, deeper bench, evidence-graded outputs. In scope. No add-on cost.</div>
+        <div class="role">AI Super-Agent · 4th Consultant</div>
+        <div class="bio">Built on the BimRoss agent harness. Day one, Dale gets a four-agent fleet: personal agents tuned for John, Steve, Dave (each one knows that consultant's voice and focus area) plus a shared team agent holding the full project context. Tier-1 firms bolt AI onto legacy workflows. We built ours into the engagement. In scope.</div>
         <div class="creds">
           <div class="cred">4 agents</div>
           <div class="cred">Personal + team</div>
-          <div class="cred">Always-on</div>
           <div class="cred">In scope</div>
         </div>
       </div>
@@ -1179,46 +1134,43 @@
   </div>
 </section>
 
-<section class="cream">
+<section>
   <div class="wrap">
     <div class="section-eyebrow">Frequently asked · pulled from the proposal</div>
-    <h2 class="section-title">Anything we missed? Probably answered here.</h2>
-    <p class="section-sub">Timeline, fee, scope, Dave, expenses, IP, termination — the things deals usually get held up on. Pre-answered, in plain language.</p>
+    <h2 class="section-title">Anything we missed? Probably here.</h2>
+    <p class="section-sub">Timeline, fee, Dave, AI, IP, termination — pre-answered.</p>
 
     <div class="faq">
       <div class="faq-col">
-        <h4>Timeline &amp; scope</h4>
-        <details class="q"><summary>How long is the engagement?</summary><div class="a"><b>60 calendar days</b> from signature. If Dale materially delays delivery of required access — CaddieOS documentation, walkthrough, code repos, sandbox, dev-team Q&amp;A, or the warm-intro pipeline — the 60-day timeline shifts day-for-day.</div></details>
-        <details class="q"><summary>What if you need to expand scope?</summary><div class="a">Material scope changes require a <b>written addendum</b> with adjusted fee and timeline. We don't silently absorb new asks — we flag, scope, and price them. That's a feature, not friction.</div></details>
-        <details class="q"><summary>When does the timer start?</summary><div class="a">Day 1 is the signature date. Personal agents (mine, Steve's, Dave's) plus the shared CaddieOS team agent are provisioned that same day. No ramp lag.</div></details>
-        <details class="q"><summary>What's the final deliverable?</summary><div class="a">A <b>written Discovery Findings &amp; Recommendations</b> report at day 60, plus a <b>live 60–90 minute working session</b> with Dale leadership to walk through it. By mutual agreement, the session may extend by 30 minutes during the meeting itself.</div></details>
-        <details class="q"><summary>What's in the report?</summary><div class="a">Module keep / cut / expand calls (each grounded in research). Named beachhead segment. Pricing hypothesis tested against three live A/B/C models with real operators. Build-vs-partner-vs-buy decisions for every adjacent capability. A 12-month roadmap ranked by ARR-per-dollar-built.</div></details>
+        <h4>Timeline &amp; deliverable</h4>
+        <details class="q"><summary>How long is the engagement?</summary><div class="a"><b>60 calendar days</b> from signature. Material access delays (CaddieOS walkthrough, code repos, dev-team Q&amp;A, warm-intro pipeline) shift the timeline day-for-day.</div></details>
+        <details class="q"><summary>What's the final deliverable?</summary><div class="a">A <b>written Discovery Findings &amp; Recommendations</b> report at day 60, plus a <b>live 60–90 minute working session</b> with Dale leadership to walk through it.</div></details>
+        <details class="q"><summary>What's in the report?</summary><div class="a">Module keep/cut/expand calls. Named beachhead segment. Pricing hypothesis tested against three live A/B/C models. Build-vs-partner-vs-buy on every adjacent capability. 12-month roadmap ranked by ARR-per-dollar-built.</div></details>
+        <details class="q"><summary>Scope expansion?</summary><div class="a">Material changes require a <b>written addendum</b> with adjusted fee and timeline. We flag, scope, and price — not silently absorb.</div></details>
       </div>
 
       <div class="faq-col">
         <h4>Fee &amp; payment</h4>
-        <details class="q"><summary>What's the total fee?</summary><div class="a"><b>$102,000 USD</b>, fixed fee. Split evenly between the two primary consultants ($51,000 each). Out-of-pocket expenses absorbed up to a $2,500 aggregate cap; above the cap, reimbursed by Dale at cost with prior written approval.</div></details>
-        <details class="q"><summary>How does payment work?</summary><div class="a"><b>50% non-refundable on signature, 50% non-refundable on delivery</b> of the final report. Each primary paid separately — $25,500 each at signing, $25,500 each at delivery. ACH preferred, wire or check accepted. Net 7 from invoice. Late payments accrue 1.5%/month or max allowed by law.</div></details>
-        <details class="q"><summary>What's the acceptance trigger?</summary><div class="a">Deliverable is <b>deemed accepted if Dale doesn't object in writing within 7 calendar days</b> of delivery with specific deficiencies named. Final payment is due net 7 from acceptance or deemed acceptance.</div></details>
-        <details class="q"><summary>What if Dale terminates early?</summary><div class="a">Either party may terminate for material breach with 20 days' written notice and a chance to cure. <b>Dale owes for work completed through termination date.</b> The first 50% deposit remains non-refundable in all cases. Termination for convenience: 100% of the fee remains owed.</div></details>
-        <details class="q"><summary>Out-of-pocket expenses?</summary><div class="a">We absorb up to <b>$2,500 aggregate</b> across both primary consultants (travel, per diem, interview incentives, paid third-party research). If projected expenses are about to exceed the cap, we pause and ask. Above the cap is reimbursed by Dale at cost with prior written approval.</div></details>
+        <details class="q"><summary>Total fee?</summary><div class="a"><b>$102,000 USD</b>, fixed fee, split 50/50 between John and Steve. Out-of-pocket expenses absorbed up to a $2,500 aggregate cap.</div></details>
+        <details class="q"><summary>Payment structure?</summary><div class="a"><b>50% non-refundable on signature, 50% non-refundable on delivery.</b> $25,500 each consultant at each milestone. ACH preferred. Net 7 from invoice.</div></details>
+        <details class="q"><summary>Acceptance trigger?</summary><div class="a">Deemed accepted if Dale doesn't object in writing with specific deficiencies within <b>7 calendar days</b> of delivery.</div></details>
+        <details class="q"><summary>Termination?</summary><div class="a">Either party may terminate for material breach with 20 days' notice and cure window. Dale owes for work completed through termination date. Initial 50% deposit non-refundable in all cases.</div></details>
       </div>
 
       <div class="faq-col">
         <h4>Team &amp; AI</h4>
-        <details class="q"><summary>Who is Dave Bisbee, and how is he involved?</summary><div class="a">Senior support consultant to John and Steve. Founder of Back on Course Golf™. <b>30+ years of leadership across some of the country's most respected private golf clubs.</b> 50,000+ golfers coached, 50+ PGA pros mentored, best-selling author, executive coach to Fortune 500 leaders. John and Steve direct the engagement end-to-end and draw on Dave's network, introductions, and operating relationships at their discretion.</div></details>
-        <details class="q"><summary>How is Dave compensated?</summary><div class="a">Dave's compensation is <b>allocated from the engagement fee by the primary consultants, at their discretion</b>. He is not separately contracted, paid, supervised, or managed by Dale Ventures. His involvement is ad-hoc and project-relevant; we'll surface his contribution to Dale on the bi-weekly status cadence, or sooner if material.</div></details>
-        <details class="q"><summary>What's "Ross" — the AI agent?</summary><div class="a">An AI super-agent that sits inside the engagement as a 4th consultant. <b>Personal agents tuned for John, Steve, and Dave</b> (each one knows that consultant's voice and focus area) plus a <b>shared CaddieOS team agent</b> holding the full project context. Always-on, in scope, no add-on cost. The agent tier is how we cover ground a 4-person team usually can't.</div></details>
-        <details class="q"><summary>What about confidentiality on the AI side?</summary><div class="a">Same posture as the rest: reasonable industry-standard practices, encrypted at rest where applicable, access restricted to the engagement team, secure transmission. <b>Dale's data is not used to train any model.</b> The agents run on our infrastructure under our credentials, not a public chatbot.</div></details>
+        <details class="q"><summary>Who is Dave Bisbee?</summary><div class="a">Senior support consultant. Founder of Back on Course Golf™. <b>30+ years across some of the country's most respected private clubs.</b> 50,000+ golfers coached. John and Steve direct the engagement and draw on Dave's network at their discretion.</div></details>
+        <details class="q"><summary>How is Dave compensated?</summary><div class="a">Allocated <b>from the engagement fee by the primary consultants, at their discretion.</b> Not separately contracted by Dale. Surfaced on the bi-weekly status cadence.</div></details>
+        <details class="q"><summary>What's "Ross" — the AI agent?</summary><div class="a">The 4th consultant. <b>Personal CaddieOS-tuned agents for John, Steve, Dave</b> plus a <b>shared team agent</b> holding full project context. In scope. No add-on cost.</div></details>
+        <details class="q"><summary>AI confidentiality?</summary><div class="a">Industry-standard practices. Encrypted at rest, scoped access, secure transmission. <b>Dale's data is not used to train any model.</b> Runs on our infrastructure, not a public chatbot.</div></details>
       </div>
 
       <div class="faq-col">
         <h4>IP, legal &amp; the boring stuff</h4>
-        <details class="q"><summary>Who owns the deliverable?</summary><div class="a"><b>Dale owns the final deliverable upon final payment.</b> Consultants retain rights to underlying methodologies and templates (the way we work, not the work itself). Dale information shared with us is treated as confidential and used solely to perform the services.</div></details>
-        <details class="q"><summary>Are you locked in exclusively to CaddieOS during the engagement?</summary><div class="a">We may concurrently engage with other clients, provided they aren't <b>directly competitive with CaddieOS</b> under this agreement. The non-compete restriction applies only during the 60-day engagement period and terminates on final delivery. Steve has disclosed a non-competitive interest in a smart-ball / mobile-simulator venture.</div></details>
-        <details class="q"><summary>What about post-engagement support?</summary><div class="a">A <b>14-day post-engagement Q&amp;A window</b> covers up to four (4) hours of clarification questions on report content. Further work requires a written addendum. (With the team agent live, follow-on questions in that window are typically answered in hours.)</div></details>
-        <details class="q"><summary>Liability cap?</summary><div class="a">Each party's total liability is capped at the fees actually paid or payable. Neither party is liable for indirect, consequential, special, incidental, or lost-profit damages. Standard, mutual.</div></details>
-        <details class="q"><summary>Governing law?</summary><div class="a">State of New York. Exclusive jurisdiction and venue in state and federal courts located in <b>Erie County, NY</b>.</div></details>
+        <details class="q"><summary>Who owns the deliverable?</summary><div class="a"><b>Dale owns the final deliverable upon final payment.</b> Consultants retain rights to underlying methodologies and templates.</div></details>
+        <details class="q"><summary>Exclusivity during the engagement?</summary><div class="a">Consultants may engage other clients, provided they're not <b>directly competitive with CaddieOS</b>. Restriction ends on final delivery. Steve has disclosed a non-competitive interest in a smart-ball / mobile-simulator venture.</div></details>
+        <details class="q"><summary>Post-engagement support?</summary><div class="a"><b>14-day Q&amp;A window</b> covers up to 4 hours of clarification on report content. With the team agent live, follow-ons typically answered in hours.</div></details>
+        <details class="q"><summary>Governing law?</summary><div class="a">State of New York. Erie County jurisdiction. Liability capped at fees paid; mutual.</div></details>
       </div>
     </div>
   </div>
@@ -1227,9 +1179,9 @@
 <section class="close">
   <div class="wrap inner">
     <div class="ey">The ask, plainly</div>
-    <h2>Sixty days. One named beachhead. The evidence to deploy capital with conviction — or not.</h2>
+    <h2>Sixty days. One named beachhead. The evidence to deploy with conviction — or not.</h2>
     <div class="accent"></div>
-    <p>The cheapest way for Dale to earn conviction before the next capital cycle. The cleanest way for CaddieOS to be ready when that cycle opens. We're excited to walk it with you.</p>
+    <p>The cheapest way for Dale to earn conviction before the next capital cycle. The cleanest way for CaddieOS to be ready when it opens.</p>
     <div class="sigline">
       <div><b>John Osberg</b> · johnosberg@gmail.com</div>
       <div><b>Steve Coulton</b> · coultonventures@gmail.com</div>
