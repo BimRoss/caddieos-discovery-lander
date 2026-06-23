@@ -412,6 +412,80 @@
   .comp-legend .item { display: flex; align-items: center; gap: 10px; }
   .comp-legend .dot { width: 12px; height: 12px; border-radius: 50%; }
 
+  /* ---------- COMPS LANDSCAPE (real incumbents) ---------- */
+  .comp-grid {
+    margin-top: 8px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 900px) { .comp-grid { grid-template-columns: 1fr; } }
+  .comp-col {
+    background: var(--card-bg);
+    border: 1px solid var(--hair);
+    border-radius: 10px;
+    padding: 26px 24px 22px;
+    display: flex; flex-direction: column;
+  }
+  html[data-theme="dark"] .comp-col { background: #10181d; border-color: var(--hair); }
+  .comp-col .head {
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 14px; margin-bottom: 14px;
+  }
+  html[data-theme="dark"] .comp-col .head { border-bottom-color: var(--hair); }
+  .comp-col .seg-tag {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .comp-col .seg-title {
+    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 800;
+    color: var(--green-deep); letter-spacing: -0.018em; margin-top: 6px;
+  }
+  html[data-theme="dark"] .comp-col .seg-title { color: var(--gold-bright); }
+  .comp-col .seg-note { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .comp-list { list-style: none; margin: 0; }
+  .comp-list li {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--hair);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .comp-list li:last-child { border-bottom: none; }
+  .comp-list li b { color: var(--green-deep); font-weight: 700; }
+  html[data-theme="dark"] .comp-list li b { color: var(--gold-bright); }
+  .comp-list li span { color: var(--muted); font-size: 12.5px; display: block; margin-top: 2px; }
+  .comp-callout {
+    margin-top: 24px;
+    background: linear-gradient(135deg, var(--green-deep), var(--green-darker));
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 760px) { .comp-callout { grid-template-columns: 1fr; gap: 14px; padding: 24px; } }
+  .comp-callout::before {
+    content: ""; position: absolute; top: -40%; right: -10%; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,169,97,0.22), transparent 60%);
+  }
+  .comp-callout .badge {
+    position: relative; z-index: 2;
+    font-family: 'Fraunces', serif; font-weight: 800;
+    font-size: 32px; line-height: 1; color: var(--gold-bright); letter-spacing: -0.02em;
+    padding: 14px 20px;
+    border: 1px solid rgba(201,169,97,0.4);
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .comp-callout .body { position: relative; z-index: 2; }
+  .comp-callout .body .ey {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold-bright);
+  }
+  .comp-callout .body p {
+    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; line-height: 1.35;
+    margin-top: 8px; color: #fff; letter-spacing: -0.014em;
+  }
+  .comp-callout .body p b { color: var(--gold-bright); font-weight: 800; }
+
   /* ---------- WORKSTREAMS ---------- */
   .ws-grid {
     margin-top: 56px;
@@ -1112,76 +1186,56 @@
     <h2 class="section-title">Everyone's solving a slice. Nobody owns the operator's day.</h2>
     <p class="section-sub">The category's fragmented along whatever surface a vendor happens to touch. The whitespace is the operating layer that connects them.</p>
 
-    <div class="comps-wrap">
-      <div class="chart">
-        <svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="#e3e3e3"/>
-            </pattern>
-          </defs>
-          <rect x="60" y="20" width="700" height="480" fill="url(#dots)"/>
-          <!-- axes -->
-          <line x1="60" y1="500" x2="760" y2="500" stroke="#999" stroke-width="1"/>
-          <line x1="60" y1="20" x2="60" y2="500" stroke="#999" stroke-width="1"/>
-          <!-- axis labels -->
-          <text x="410" y="540" text-anchor="middle" fill="#6b6b6b" font-family="Inter" font-size="13" font-weight="700" letter-spacing="2">OPERATOR DEPTH  →</text>
-          <text x="30" y="260" text-anchor="middle" fill="#6b6b6b" font-family="Inter" font-size="13" font-weight="700" letter-spacing="2" transform="rotate(-90 30 260)">PLATFORM BREADTH  →</text>
-
-          <!-- quadrant labels -->
-          <text x="170" y="50" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">PLAYER POINT TOOLS</text>
-          <text x="570" y="50" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">PLATFORM OPPORTUNITY</text>
-          <text x="170" y="490" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">OPERATOR POINT TOOLS</text>
-          <text x="570" y="490" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">OPERATOR STACK</text>
-
-          <!-- comp bubbles -->
-          <!-- arccos: player breadth, low operator depth -->
-          <circle cx="190" cy="170" r="34" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
-          <text x="190" y="175" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Arccos</text>
-
-          <!-- trackman: player tech, mid -->
-          <circle cx="260" cy="240" r="44" fill="#c9a961" fill-opacity="0.22" stroke="#c9a961" stroke-width="1.5"/>
-          <text x="260" y="245" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Trackman</text>
-
-          <!-- foresight: player+sim hardware -->
-          <circle cx="210" cy="310" r="36" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
-          <text x="210" y="315" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Foresight</text>
-
-          <!-- golfnow: marketplace -->
-          <circle cx="380" cy="430" r="38" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
-          <text x="380" y="435" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">GolfNow</text>
-
-          <!-- topgolf: format/destination -->
-          <circle cx="430" cy="200" r="40" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
-          <text x="430" y="205" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Topgolf</text>
-
-          <!-- legacy operator software (cluster) -->
-          <circle cx="520" cy="410" r="28" fill="#999" fill-opacity="0.12" stroke="#999" stroke-width="1"/>
-          <text x="520" y="414" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#6b6b6b">Legacy POS</text>
-          <circle cx="600" cy="440" r="26" fill="#999" fill-opacity="0.12" stroke="#999" stroke-width="1"/>
-          <text x="600" y="444" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#6b6b6b">Tee Sheet</text>
-
-          <!-- CaddieOS (target) -->
-          <circle cx="640" cy="200" r="76" fill="#1f4d2e" fill-opacity="0.16" stroke="#1f4d2e" stroke-width="2.5" stroke-dasharray="6 6"/>
-          <circle cx="640" cy="200" r="50" fill="#1f4d2e"/>
-          <text x="640" y="195" text-anchor="middle" font-family="Fraunces" font-size="18" font-weight="800" fill="#c9a961">CaddieOS</text>
-          <text x="640" y="215" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#fff" opacity="0.8">target</text>
-
-          <!-- xGolf annotation -->
-          <circle cx="500" cy="280" r="22" fill="#3b7c54" fill-opacity="0.2" stroke="#3b7c54" stroke-width="1.5"/>
-          <text x="500" y="284" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#0e3d24">xGolf</text>
-          <text x="500" y="320" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3b7c54" font-style="italic">Dale portfolio</text>
-        </svg>
+    <div class="comp-grid">
+      <div class="comp-col">
+        <div class="head">
+          <div class="seg-tag">Private clubs</div>
+          <div class="seg-title">Member-owned · high-$ contracts</div>
+          <div class="seg-note">Full ERPs. Sticky. On-prem heritage. Slow to modernize.</div>
+        </div>
+        <ul class="comp-list">
+          <li><b>Jonas Club Software</b><span>800lb gorilla. POS, F&amp;B, billing, accounting, membership, tee sheet.</span></li>
+          <li><b>Clubessential Holdings</b><span>Rollup. Owns Northstar, ForeTees, MembersFirst, foreUP, Club Caddie.</span></li>
+          <li><b>Northstar Technologies</b><span>Private club ops (Clubessential).</span></li>
+          <li><b>TAI · Total e Integrated</b><span>Canadian private club platform.</span></li>
+        </ul>
       </div>
-      <div class="comps-axes">
-        <div>Player-side ←</div>
-        <div>→ Operator-side</div>
+
+      <div class="comp-col">
+        <div class="head">
+          <div class="seg-tag">Public · semi-private · muni</div>
+          <div class="seg-title">Cloud-native point tools · mid-market</div>
+          <div class="seg-note">Tee sheets, POS, booking. The modernizing layer.</div>
+        </div>
+        <ul class="comp-list">
+          <li><b>Lightspeed Golf</b><span>Cloud-native tee sheet, POS, booking (formerly Chronogolf).</span></li>
+          <li><b>foreUP</b><span>Cloud POS, tee sheets, marketing automation. Mid-market public.</span></li>
+          <li><b>Club Prophet Systems</b><span>Full-suite, multi-segment.</span></li>
+          <li><b>NBC Sports Next · GolfNow G1</b><span>Tee sheet plus the GolfNow demand pipeline (formerly EZLinks).</span></li>
+          <li><b>Vermont Systems · RecTrac</b><span>Municipal parks-and-rec. Often runs muni courses.</span></li>
+        </ul>
       </div>
-      <div class="comp-legend">
-        <div class="item"><div class="dot" style="background:#c9a961;"></div> Adjacent / point tools</div>
-        <div class="item"><div class="dot" style="background:#999;"></div> Legacy operator software</div>
-        <div class="item"><div class="dot" style="background:#3b7c54;"></div> Dale portfolio (xGolf)</div>
-        <div class="item"><div class="dot" style="background:#1f4d2e;"></div> CaddieOS — operating layer</div>
+
+      <div class="comp-col">
+        <div class="head">
+          <div class="seg-tag">Adjacent layers</div>
+          <div class="seg-title">Specialist surfaces · plug-ins</div>
+          <div class="seg-note">In the conversation, but not full operating systems.</div>
+        </div>
+        <ul class="comp-list">
+          <li><b>Golf Genius</b><span>Tournament &amp; league management. GHIN integration moat. Expanding into shop ops.</span></li>
+          <li><b>Sagacity Golf</b><span>Dynamic tee-time pricing / yield management. Plugs into tee sheets.</span></li>
+          <li><b>Tagmarshal</b><span>Pace-of-play and on-course ops telemetry.</span></li>
+          <li><b>Supreme Golf</b><span>Booking aggregator (demand side).</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="comp-callout">
+      <div class="badge">CaddieOS</div>
+      <div class="body">
+        <div class="ey">The whitespace</div>
+        <p>Legacy ERPs <b>own private clubs</b>. Cloud point tools <b>own modernization</b>. Nobody owns the operator's day <b>end-to-end</b>. That's the operating layer CaddieOS is built for.</p>
       </div>
     </div>
   </div>
@@ -1266,7 +1320,7 @@
             <div class="ok">  ✓ context: proposal · plan · interviews · comps</div>
             <div style="margin-top: 14px;"><span class="prompt">→</span> workflow.run("competitive-scan")</div>
             <div class="dim">  fan-out: 7 finders · 3 verifiers per claim</div>
-            <div class="ok">  ✓ Trackman · Arccos · Foresight · xGolf</div>
+            <div class="ok">  ✓ Jonas · Clubessential · Lightspeed · foreUP · CPS</div>
             <div style="margin-top: 14px;"><span class="prompt">→</span> <span style="color:#cde9d6;">fleet ready · day 1</span><span class="cursor"></span></div>
           </div>
         </div>
