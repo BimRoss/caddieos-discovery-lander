@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CaddieOS — Discovery Sync · Jon Varley · June 23</title>
+<meta name="description" content="60-day market discovery for CaddieOS. Prepared for the June 23 working session with Jon Varley.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1f4d2e;
+    --green-deep: #0e3d24;
+    --green-darker: #082215;
+    --green-bright: #3b7c54;
+    --gold: #c9a961;
+    --gold-bright: #e0c073;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --hair: #e3e3e3;
+    --paper: #fafaf7;
+    --paper-soft: #f3f1ea;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 800; letter-spacing: -0.02em; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+  @media (max-width: 760px) { .wrap { padding: 0 24px; } }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(14, 61, 36, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,97,0.18);
+  }
+  nav .row { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: #fff; font-weight: 800; letter-spacing: -0.01em; font-size: 17px; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(201,169,97,0.18); }
+  .nav-meta { color: rgba(255,255,255,0.7); font-size: 13px; letter-spacing: 0.02em; }
+  .nav-meta b { color: var(--gold-bright); font-weight: 700; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: radial-gradient(1200px 700px at 20% -10%, #1a5a3a 0%, var(--green-deep) 38%, var(--green-darker) 100%);
+    color: #fff;
+    padding: 140px 0 100px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 500px at 85% 110%, rgba(201,169,97,0.18), transparent 60%),
+      radial-gradient(circle at 90% 20%, rgba(59,124,84,0.4), transparent 50%);
+    pointer-events: none;
+  }
+  .hero .grid-bg {
+    position: absolute; inset: 0; opacity: 0.06; pointer-events: none;
+    background-image:
+      linear-gradient(to right, #fff 1px, transparent 1px),
+      linear-gradient(to bottom, #fff 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  .hero .inner { position: relative; z-index: 2; }
+  .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--gold-bright);
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 16px;
+    border: 1px solid rgba(201,169,97,0.4);
+    border-radius: 999px;
+    background: rgba(201,169,97,0.06);
+  }
+  .eyebrow .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+    box-shadow: 0 0 0 0 rgba(201,169,97,0.6);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(201,169,97,0.6); }
+    70% { box-shadow: 0 0 0 14px rgba(201,169,97,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,169,97,0); }
+  }
+  .hero h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(48px, 7vw, 92px);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-top: 28px;
+    max-width: 16ch;
+  }
+  .hero h1 .gold { color: var(--gold-bright); font-style: italic; font-weight: 700; }
+  .hero h1 .accent {
+    display: block;
+    width: 96px; height: 5px; background: var(--gold);
+    margin-top: 36px;
+  }
+  .hero .lede {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.55;
+    color: rgba(255,255,255,0.85);
+    margin-top: 36px;
+    max-width: 60ch;
+  }
+  .hero .signed {
+    margin-top: 56px;
+    display: flex; flex-wrap: wrap; gap: 40px;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+  }
+  .hero .signed .who { color: #fff; font-weight: 600; font-size: 15px; }
+  .hero .signed .who span { color: rgba(255,255,255,0.55); font-weight: 400; display: block; margin-top: 2px; }
+
+  .meeting-card {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+    padding: 28px 36px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,97,0.25);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+  @media (max-width: 760px) {
+    .meeting-card { grid-template-columns: 1fr; gap: 16px; text-align: left; padding: 24px; }
+  }
+  .meeting-card .time {
+    font-family: 'Fraunces', serif;
+    font-size: 56px; font-weight: 800;
+    color: var(--gold-bright);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .meeting-card .time small { display: block; font-size: 13px; color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px; }
+  .meeting-card .who2 { font-weight: 600; font-size: 16px; color: #fff; }
+  .meeting-card .who2 .label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .meeting-card .who2 .name { color: var(--gold-bright); }
+  .meeting-card .meta { text-align: right; font-size: 13px; color: rgba(255,255,255,0.6); }
+  .meeting-card .meta b { color: #fff; font-weight: 600; font-size: 14px; display: block; }
+  @media (max-width: 760px) {
+    .meeting-card .meta { text-align: left; }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 110px 0; }
+  section.dark { background: var(--green-darker); color: #fff; }
+  section.cream { background: var(--paper-soft); }
+  .section-eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--green);
+  }
+  section.dark .section-eyebrow { color: var(--gold-bright); }
+  .section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(34px, 4vw, 56px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    margin-top: 14px;
+    max-width: 22ch;
+  }
+  .section-sub {
+    font-size: 18px; color: var(--muted); margin-top: 18px; max-width: 60ch;
+    line-height: 1.55;
+  }
+  section.dark .section-sub { color: rgba(255,255,255,0.7); }
+
+  /* ---------- STATS STRIP ---------- */
+  .stats-strip {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  section.dark .stats-strip { background: rgba(255,255,255,0.08); }
+  .stat {
+    background: var(--paper);
+    padding: 44px 36px;
+    position: relative;
+  }
+  section.dark .stat { background: var(--green-darker); }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 76px; font-weight: 800;
+    color: var(--green);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    display: flex; align-items: baseline; gap: 4px;
+  }
+  section.dark .stat .num { color: var(--gold-bright); }
+  .stat .num .unit { font-size: 32px; font-weight: 700; }
+  .stat .lab {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    margin-top: 18px; color: var(--ink);
+  }
+  section.dark .stat .lab { color: #fff; }
+  .stat .sub { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  section.dark .stat .sub { color: rgba(255,255,255,0.6); }
+  .stat .delta {
+    position: absolute; top: 24px; right: 24px;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 4px;
+  }
+  section.dark .stat .delta { background: var(--gold); color: var(--green-darker); }
+  @media (max-width: 760px) { .stats-strip { grid-template-columns: 1fr; } }
+
+  /* ---------- SEGMENT GROWTH CHART ---------- */
+  .segments {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  @media (max-width: 760px) { .segments { grid-template-columns: 1fr; } }
+  .seg {
+    background: #fff;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+  }
+  .seg .seg-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 60px; font-weight: 800;
+    color: var(--green);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .seg .seg-pct .plus { color: var(--gold); }
+  .seg .seg-lab { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 16px; }
+  .seg .seg-desc { color: var(--muted); font-size: 14px; margin-top: 10px; line-height: 1.55; }
+  .seg .bar {
+    margin-top: 22px; height: 6px; background: var(--paper-soft); border-radius: 4px; overflow: hidden;
+  }
+  .seg .bar .fill {
+    height: 100%; background: linear-gradient(90deg, var(--green), var(--green-bright));
+    border-radius: 4px;
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* ---------- MARKET SIZING ---------- */
+  .market-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .market-grid { grid-template-columns: 1fr; } }
+  .tam-rings { position: relative; aspect-ratio: 1; max-width: 480px; margin: 0 auto; width: 100%; }
+  .tam-rings svg { width: 100%; height: 100%; display: block; }
+  .tam-rings .ring-label {
+    position: absolute; text-align: center;
+  }
+  .tam-rings .rl-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  }
+  .tam-rings .rl-val {
+    font-family: 'Fraunces', serif; font-weight: 800; color: var(--green);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .tam-rings .ring-tam { top: 6%; left: 50%; transform: translateX(-50%); }
+  .tam-rings .ring-tam .rl-val { font-size: 32px; color: var(--green); }
+  .tam-rings .ring-sam { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .tam-rings .ring-sam .rl-val { font-size: 30px; color: var(--green-bright); }
+  .tam-rings .ring-som { bottom: 6%; left: 50%; transform: translateX(-50%); }
+  .tam-rings .ring-som .rl-val { font-size: 26px; color: var(--gold); }
+
+  .tam-table { font-size: 15px; line-height: 1.6; }
+  .tam-row { display: grid; grid-template-columns: 60px 1fr auto; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--hair); align-items: baseline; }
+  .tam-row:last-child { border-bottom: none; }
+  .tam-row .tag { font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: var(--green); }
+  .tam-row .desc { color: var(--ink); }
+  .tam-row .desc small { color: var(--muted); display: block; margin-top: 4px; font-size: 13px; }
+  .tam-row .val { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; color: var(--green-deep); letter-spacing: -0.02em; }
+
+  /* ---------- COMPS POSITIONING ---------- */
+  .comps-wrap {
+    margin-top: 56px;
+    background: #fff;
+    border: 1px solid var(--hair);
+    border-radius: 12px;
+    padding: 48px;
+    position: relative;
+  }
+  .comps-wrap .chart { aspect-ratio: 1.4; width: 100%; }
+  .comps-wrap .chart svg { width: 100%; height: 100%; }
+  .comps-axes { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+  .comp-legend {
+    display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px;
+    font-size: 14px;
+  }
+  .comp-legend .item { display: flex; align-items: center; gap: 10px; }
+  .comp-legend .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* ---------- WORKSTREAMS ---------- */
+  .ws-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  @media (max-width: 760px) { .ws-grid { grid-template-columns: 1fr; } }
+  .ws {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,97,0.18);
+    border-radius: 10px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ws::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--gold-bright));
+  }
+  .ws .ws-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.24em; color: var(--gold-bright); }
+  .ws .ws-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; margin-top: 8px; letter-spacing: -0.02em; }
+  .ws .ws-lead { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 6px; }
+  .ws .ws-body { font-size: 15px; color: rgba(255,255,255,0.85); margin-top: 18px; line-height: 1.6; }
+  .ws .ws-num {
+    position: absolute; top: 28px; right: 36px;
+    font-family: 'Fraunces', serif; font-size: 56px; font-weight: 800;
+    color: rgba(201,169,97,0.18);
+    line-height: 1;
+  }
+
+  /* ---------- AI HARNESS FLEX ---------- */
+  .harness {
+    margin-top: 64px;
+    background: linear-gradient(135deg, var(--green-deep) 0%, #1a5a3a 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .harness::before {
+    content: ""; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,169,97,0.18), transparent 60%);
+  }
+  .harness-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; position: relative; z-index: 2; align-items: center; }
+  @media (max-width: 900px) { .harness-grid { grid-template-columns: 1fr; } }
+  .harness .h-eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold-bright);
+  }
+  .harness h3 {
+    font-family: 'Fraunces', serif; font-size: 40px; font-weight: 800; letter-spacing: -0.025em;
+    margin-top: 14px; line-height: 1.05;
+  }
+  .harness p { color: rgba(255,255,255,0.82); font-size: 16px; line-height: 1.65; margin-top: 18px; }
+  .harness ul { list-style: none; margin-top: 24px; }
+  .harness li { padding: 10px 0 10px 24px; border-left: 2px solid var(--gold); margin-bottom: 8px; font-size: 15px; color: rgba(255,255,255,0.92); }
+  .harness li b { color: var(--gold-bright); margin-right: 6px; }
+
+  .terminal {
+    background: #0a1f14;
+    border: 1px solid rgba(201,169,97,0.25);
+    border-radius: 8px;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: #cde9d6;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    background: rgba(255,255,255,0.04);
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .terminal-bar .led { width: 10px; height: 10px; border-radius: 50%; }
+  .terminal-bar .led.r { background: #ff5f57; }
+  .terminal-bar .led.y { background: #febc2e; }
+  .terminal-bar .led.g { background: #28c840; }
+  .terminal-bar .title { margin-left: 12px; font-weight: 600; }
+  .terminal-body { padding: 20px 22px; min-height: 280px; line-height: 1.7; }
+  .terminal-body .prompt { color: var(--gold-bright); }
+  .terminal-body .ok { color: #6ee7a3; }
+  .terminal-body .dim { color: rgba(255,255,255,0.4); }
+  .terminal-body .cursor { display: inline-block; width: 8px; height: 16px; background: var(--gold-bright); vertical-align: -3px; animation: blink 1s steps(2) infinite; margin-left: 4px; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- AGENDA ---------- */
+  .agenda {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr; gap: 1px;
+    background: var(--hair);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .agenda-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 24px;
+    background: var(--paper);
+    padding: 28px 32px;
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .agenda-row:hover { background: #fff; }
+  .agenda-row .ag-num {
+    font-family: 'Fraunces', serif; font-size: 36px; font-weight: 800; color: var(--gold);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .agenda-row .ag-body .ag-title { font-weight: 700; font-size: 17px; }
+  .agenda-row .ag-body .ag-desc { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .agenda-row .ag-time { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; }
+
+  /* ---------- TEAM ---------- */
+  .team-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  @media (max-width: 760px) { .team-grid { grid-template-columns: 1fr; } }
+  .person {
+    background: #fff;
+    border: 1px solid var(--hair);
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+  }
+  .person .initials {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--green), var(--green-bright));
+    color: var(--gold-bright);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-weight: 800; font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+  .person .name { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 800; margin-top: 20px; letter-spacing: -0.02em; }
+  .person .role { font-size: 13px; color: var(--green); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+  .person .bio { font-size: 15px; color: var(--ink); margin-top: 18px; line-height: 1.6; }
+  .person .creds { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .person .cred {
+    background: var(--paper-soft);
+    border: 1px solid var(--hair);
+    color: var(--green-deep);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* ---------- CLOSE ---------- */
+  .close {
+    background: linear-gradient(135deg, var(--green-deep), var(--green-darker));
+    color: #fff;
+    text-align: center;
+    padding: 110px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .close::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(800px 400px at 50% 0%, rgba(201,169,97,0.18), transparent 60%);
+  }
+  .close .inner { position: relative; z-index: 2; }
+  .close .ey {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-bright);
+  }
+  .close h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-top: 20px;
+    max-width: 22ch;
+    margin-left: auto; margin-right: auto;
+  }
+  .close .accent {
+    width: 80px; height: 4px; background: var(--gold);
+    margin: 36px auto 0;
+  }
+  .close p {
+    color: rgba(255,255,255,0.78);
+    font-size: 18px; line-height: 1.55;
+    max-width: 56ch; margin: 28px auto 0;
+  }
+  .close .sigline {
+    margin-top: 56px;
+    display: flex; flex-wrap: wrap; gap: 36px; justify-content: center;
+    color: rgba(255,255,255,0.75); font-size: 14px;
+  }
+  .close .sigline b { color: #fff; font-weight: 600; }
+
+  footer {
+    background: var(--green-darker);
+    color: rgba(255,255,255,0.5);
+    padding: 36px 0;
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid rgba(201,169,97,0.15);
+  }
+  footer a { color: var(--gold-bright); text-decoration: none; }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap row">
+    <div class="brand"><span class="dot"></span><span>CaddieOS · Discovery</span></div>
+    <div class="nav-meta">Working session · <b>June 23, 2026 · 2:00 PM ET</b></div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap inner">
+    <div class="eyebrow"><span class="pulse"></span> Prepared for today's working session</div>
+    <h1>The next golf platform <span class="gold">isn't a product.</span> It's an operating system.</h1>
+    <span class="accent" style="display:block"></span>
+    <p class="lede">
+      Sixty days of independent, evidence-led discovery to convert founder conviction into investable evidence — TAM, ICP pull, willingness-to-pay, competitive moat, capital path. Built for the way Dale Ventures already wins.
+    </p>
+    <div class="signed">
+      <div>
+        <div class="who">John Osberg <span>Primary Consultant · ex-PGA of America, OnCore Golf</span></div>
+      </div>
+      <div>
+        <div class="who">Steve Coulton <span>Primary Consultant · Coulton Ventures, ex-OnCore Golf</span></div>
+      </div>
+    </div>
+
+    <div class="meeting-card">
+      <div class="time">2:00<small>PM ET · TODAY</small></div>
+      <div class="who2">
+        <span class="label">With</span>
+        <div><span class="name">Jon Varley</span> · ArcStone / Moneta · advising Dale Ventures</div>
+      </div>
+      <div class="meta">
+        <b>Working session</b>
+        Discovery review &amp; sync · 60 min
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">The market we're moving into</div>
+    <h2 class="section-title">Eight straight years of growth. On 2,000 fewer courses.</h2>
+    <p class="section-sub">Demand has outrun the tools. The category leaders are running 2008-era software. That's the opening.</p>
+
+    <div class="stats-strip">
+      <div class="stat">
+        <div class="num" data-count="48.1">0<span class="unit">M</span></div>
+        <div class="lab">U.S. Golfers · 2025</div>
+        <div class="sub">All-time high. Up 55% in a decade.</div>
+        <div class="delta">+55% / 10Y</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="226.5" data-prefix="$">0<span class="unit">B</span></div>
+        <div class="lab">U.S. Economic Impact</div>
+        <div class="sub">$102B direct industry size.</div>
+        <div class="delta">+22% / 5Y</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="100" data-suffix="M+">0</div>
+        <div class="lab">Global Golfers</div>
+        <div class="sub">148 countries. 18,500 courses.</div>
+        <div class="delta">2026</div>
+      </div>
+    </div>
+
+    <div class="segments">
+      <div class="seg">
+        <div class="seg-pct"><span class="plus">+</span>58<span style="font-size:36px;">%</span></div>
+        <div class="seg-lab">Juniors since 2019</div>
+        <div class="seg-desc">~6M juniors on-course in 2025, most since 2004. 35% are girls.</div>
+        <div class="bar"><div class="fill" data-w="58"></div></div>
+      </div>
+      <div class="seg">
+        <div class="seg-pct"><span class="plus">+</span>46<span style="font-size:36px;">%</span></div>
+        <div class="seg-lab">Women since 2019</div>
+        <div class="seg-desc">8M+ women now play on-course. Net gain of 2.5M in six years.</div>
+        <div class="bar"><div class="fill" data-w="46"></div></div>
+      </div>
+      <div class="seg">
+        <div class="seg-pct"><span class="plus">+</span>73<span style="font-size:36px;">%</span></div>
+        <div class="seg-lab">Simulator golf since 2019</div>
+        <div class="seg-desc">19M Americans play off-course only. Topgolf, xGolf — the new front door.</div>
+        <div class="bar"><div class="fill" data-w="73"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cream">
+  <div class="wrap">
+    <div class="section-eyebrow">Market sizing · working hypothesis</div>
+    <h2 class="section-title">A $2B market. A $500M U.S. opportunity. A $25M ARR beachhead, in three years.</h2>
+    <p class="section-sub">These bands are deliberately wide. Narrowing them — and naming the segment that gets CaddieOS to the high end of SOM fastest — is what the 60 days are for.</p>
+
+    <div class="market-grid">
+      <div class="tam-rings">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <defs>
+            <radialGradient id="g-tam" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3b7c54" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#3b7c54" stop-opacity="0.06"/>
+            </radialGradient>
+            <radialGradient id="g-sam" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#1f4d2e" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#1f4d2e" stop-opacity="0.16"/>
+            </radialGradient>
+            <radialGradient id="g-som" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#c9a961" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#c9a961" stop-opacity="0.35"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="200" r="190" fill="url(#g-tam)" stroke="#3b7c54" stroke-opacity="0.35" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="118" fill="url(#g-sam)" stroke="#1f4d2e" stroke-opacity="0.45" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="58" fill="url(#g-som)" stroke="#c9a961" stroke-width="2"/>
+        </svg>
+        <div class="ring-label ring-tam">
+          <div class="rl-title">TAM</div>
+          <div class="rl-val">$2.5B</div>
+        </div>
+        <div class="ring-label ring-sam">
+          <div class="rl-title">SAM</div>
+          <div class="rl-val">$500M</div>
+        </div>
+        <div class="ring-label ring-som">
+          <div class="rl-title">SOM</div>
+          <div class="rl-val">$25M</div>
+        </div>
+      </div>
+      <div class="tam-table">
+        <div class="tam-row">
+          <div class="tag">TAM</div>
+          <div class="desc">Global golf operations software<small>Tee sheet, POS, member mgmt, agronomy, F&amp;B, instruction, retail. 7–10% CAGR.</small></div>
+          <div class="val">$1.5–2.5B</div>
+        </div>
+        <div class="tam-row">
+          <div class="tag">SAM</div>
+          <div class="desc">U.S. private, resort, upper-tier daily-fee<small>~16,000 U.S. courses × $8–25K ARR, plus ClubCorp / Troon / KemperSports / Invited.</small></div>
+          <div class="val">$300–500M</div>
+        </div>
+        <div class="tam-row">
+          <div class="tag">SOM</div>
+          <div class="desc">3-year beachhead capture<small>2–5% SAM penetration. Benchmarked to Toast, Lightspeed, Mindbody at comparable maturity.</small></div>
+          <div class="val">$6–25M ARR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Competitive landscape</div>
+    <h2 class="section-title">Everyone's solving a slice. Nobody owns the operator's day.</h2>
+    <p class="section-sub">Player-side data, range-and-sim hardware, marketplace tee-times — the category's fragmented along the surface a vendor happens to touch. The whitespace is the operating layer that connects them.</p>
+
+    <div class="comps-wrap">
+      <div class="chart">
+        <svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#e3e3e3"/>
+            </pattern>
+          </defs>
+          <rect x="60" y="20" width="700" height="480" fill="url(#dots)"/>
+          <!-- axes -->
+          <line x1="60" y1="500" x2="760" y2="500" stroke="#999" stroke-width="1"/>
+          <line x1="60" y1="20" x2="60" y2="500" stroke="#999" stroke-width="1"/>
+          <!-- axis labels -->
+          <text x="410" y="540" text-anchor="middle" fill="#6b6b6b" font-family="Inter" font-size="13" font-weight="700" letter-spacing="2">OPERATOR DEPTH  →</text>
+          <text x="30" y="260" text-anchor="middle" fill="#6b6b6b" font-family="Inter" font-size="13" font-weight="700" letter-spacing="2" transform="rotate(-90 30 260)">PLATFORM BREADTH  →</text>
+
+          <!-- quadrant labels -->
+          <text x="170" y="50" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">PLAYER POINT TOOLS</text>
+          <text x="570" y="50" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">PLATFORM OPPORTUNITY</text>
+          <text x="170" y="490" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">OPERATOR POINT TOOLS</text>
+          <text x="570" y="490" fill="#bbb" font-family="Inter" font-size="11" font-weight="700" letter-spacing="2">OPERATOR STACK</text>
+
+          <!-- comp bubbles -->
+          <!-- arccos: player breadth, low operator depth -->
+          <circle cx="190" cy="170" r="34" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
+          <text x="190" y="175" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Arccos</text>
+
+          <!-- trackman: player tech, mid -->
+          <circle cx="260" cy="240" r="44" fill="#c9a961" fill-opacity="0.22" stroke="#c9a961" stroke-width="1.5"/>
+          <text x="260" y="245" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Trackman</text>
+
+          <!-- foresight: player+sim hardware -->
+          <circle cx="210" cy="310" r="36" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
+          <text x="210" y="315" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Foresight</text>
+
+          <!-- golfnow: marketplace -->
+          <circle cx="380" cy="430" r="38" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
+          <text x="380" y="435" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">GolfNow</text>
+
+          <!-- topgolf: format/destination -->
+          <circle cx="430" cy="200" r="40" fill="#c9a961" fill-opacity="0.18" stroke="#c9a961" stroke-width="1.5"/>
+          <text x="430" y="205" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0e3d24">Topgolf</text>
+
+          <!-- legacy operator software (cluster) -->
+          <circle cx="520" cy="410" r="28" fill="#999" fill-opacity="0.12" stroke="#999" stroke-width="1"/>
+          <text x="520" y="414" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#6b6b6b">Legacy POS</text>
+          <circle cx="600" cy="440" r="26" fill="#999" fill-opacity="0.12" stroke="#999" stroke-width="1"/>
+          <text x="600" y="444" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#6b6b6b">Tee Sheet</text>
+
+          <!-- CaddieOS (target) -->
+          <circle cx="640" cy="200" r="76" fill="#1f4d2e" fill-opacity="0.16" stroke="#1f4d2e" stroke-width="2.5" stroke-dasharray="6 6"/>
+          <circle cx="640" cy="200" r="50" fill="#1f4d2e"/>
+          <text x="640" y="195" text-anchor="middle" font-family="Fraunces" font-size="18" font-weight="800" fill="#c9a961">CaddieOS</text>
+          <text x="640" y="215" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#fff" opacity="0.8">target</text>
+
+          <!-- xGolf annotation -->
+          <circle cx="500" cy="280" r="22" fill="#3b7c54" fill-opacity="0.2" stroke="#3b7c54" stroke-width="1.5"/>
+          <text x="500" y="284" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#0e3d24">xGolf</text>
+          <text x="500" y="320" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3b7c54" font-style="italic">Dale portfolio</text>
+        </svg>
+      </div>
+      <div class="comps-axes">
+        <div>Player-side ←</div>
+        <div>→ Operator-side</div>
+      </div>
+      <div class="comp-legend">
+        <div class="item"><div class="dot" style="background:#c9a961;"></div> Adjacent / point tools</div>
+        <div class="item"><div class="dot" style="background:#999;"></div> Legacy operator software</div>
+        <div class="item"><div class="dot" style="background:#3b7c54;"></div> Dale portfolio (xGolf)</div>
+        <div class="item"><div class="dot" style="background:#1f4d2e;"></div> CaddieOS — operating layer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <div class="section-eyebrow">The 60-day shape</div>
+    <h2 class="section-title">Four parallel workstreams. One synthesis. Decision-quality evidence.</h2>
+    <p class="section-sub">Independent. Evidence-led. Time-boxed. Every recommendation traces back to interview data, market analysis, or competitive benchmarking — not opinion.</p>
+
+    <div class="ws-grid">
+      <div class="ws">
+        <div class="ws-num">A</div>
+        <div class="ws-tag">WORKSTREAM A</div>
+        <div class="ws-title">Module Assessment</div>
+        <div class="ws-lead">Lead: Steve</div>
+        <div class="ws-body">Structured teardown of the existing CaddieOS module set against real operator workflows. Keep, cut, expand — scored on operational value, technical maturity, defensibility, effort-to-finish.</div>
+      </div>
+      <div class="ws">
+        <div class="ws-num">B</div>
+        <div class="ws-tag">WORKSTREAM B</div>
+        <div class="ws-title">Primary Research</div>
+        <div class="ws-lead">Lead: John</div>
+        <div class="ws-body">~20 interviews across PGA pros, shop owners, superintendents, GMs, COOs, multi-course operators. Every guide closes with willingness-to-pay testing against three live price models.</div>
+      </div>
+      <div class="ws">
+        <div class="ws-num">C</div>
+        <div class="ws-tag">WORKSTREAM C</div>
+        <div class="ws-title">Competitive &amp; Market</div>
+        <div class="ws-lead">Lead: John, with Steve on technical</div>
+        <div class="ws-body">Feature-parity matrix, install-base scan, funding posture. Bottoms-up TAM/SAM/SOM. Adjacent integration pressure points and partnership candidates.</div>
+      </div>
+      <div class="ws">
+        <div class="ws-num">D</div>
+        <div class="ws-tag">WORKSTREAM D</div>
+        <div class="ws-title">Synthesis</div>
+        <div class="ws-lead">Lead: Joint</div>
+        <div class="ws-body">Module keep/cut/expand. Named beachhead. Pricing hypothesis with A/B/C test results. Build-vs-partner-vs-buy on every adjacent capability. 12-month roadmap.</div>
+      </div>
+    </div>
+
+    <div class="harness">
+      <div class="harness-grid">
+        <div>
+          <div class="h-eyebrow">Our competitive advantage</div>
+          <h3>This proposal — and this site — were built by an AI agent harness.</h3>
+          <p>
+            John and Steve don't just bring 20 years of golf operator relationships to this engagement. We bring leverage. The proposal you read last week, the engagement plan, this lander, the comp landscape work — all of it ran through our agent harness. Senior partners thinking with senior tools.
+          </p>
+          <ul>
+            <li><b>5–10× faster.</b> Discovery work that takes a typical advisory shop a month, we ship in days. The same analytical depth.</li>
+            <li><b>Evidence-grade.</b> Every claim traceable. Every source cited. Adversarial verification before anything ships to you.</li>
+            <li><b>Live, not static.</b> The deliverable is a living document. Dale asks a follow-on question on day 75; we answer in hours, not weeks.</li>
+            <li><b>Scoped to senior judgment.</b> The model doesn't decide. We do. The tool sharpens our reach; it doesn't replace the work.</li>
+          </ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="led r"></span><span class="led y"></span><span class="led g"></span>
+            <span class="title">ross · caddieos-discovery · live</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="prompt">→</span> agent.workflow("competitive-scan")</div>
+            <div class="dim">  fan-out: 7 finders · 3 verifiers per claim</div>
+            <div class="ok">  ✓ Trackman · Arccos · Foresight · GolfNow · xGolf</div>
+            <div class="ok">  ✓ 41 sources read · 12 cross-verified</div>
+            <div class="dim">  emitted: comp_matrix_v3.json (42 fields)</div>
+            <div style="margin-top: 14px;"><span class="prompt">→</span> agent.workflow("market-sizing")</div>
+            <div class="dim">  3 independent triangulations</div>
+            <div class="ok">  ✓ TAM/SAM/SOM bounds + confidence</div>
+            <div style="margin-top: 14px;"><span class="prompt">→</span> agent.workflow("lander-prep")</div>
+            <div class="dim">  draft → review → humanize → render</div>
+            <div class="ok">  ✓ shipped · 2026-06-23 11:00am ET</div>
+            <div style="margin-top: 14px;"><span class="prompt">→</span> <span style="color:#cde9d6;">ready</span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cream">
+  <div class="wrap">
+    <div class="section-eyebrow">Today, 2:00 PM ET</div>
+    <h2 class="section-title">What we'd like to cover.</h2>
+    <p class="section-sub">A working session, not a pitch. We're here to surface the right shape — and the right questions — together.</p>
+
+    <div class="agenda">
+      <div class="agenda-row">
+        <div class="ag-num">01</div>
+        <div class="ag-body">
+          <div class="ag-title">Calibrate roles &amp; lens</div>
+          <div class="ag-desc">Confirm Jon's hat on this — capital-markets advisor to Dale-Canada, or broader. Aligns how we'd frame the deliverable.</div>
+        </div>
+        <div class="ag-time">~10 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-num">02</div>
+        <div class="ag-body">
+          <div class="ag-title">Walk the 60-day shape</div>
+          <div class="ag-desc">Four workstreams, deliverables at day 60, pricing-tested by primary data, named beachhead.</div>
+        </div>
+        <div class="ag-time">~15 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-num">03</div>
+        <div class="ag-body">
+          <div class="ag-title">CaddieOS next to xGolf</div>
+          <div class="ag-desc">Dale already has conviction in golf-tech (xGolf ME). CaddieOS as the operator-layer adjacent to an operator-format brand.</div>
+        </div>
+        <div class="ag-time">~10 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-num">04</div>
+        <div class="ag-body">
+          <div class="ag-title">The capital-markets read</div>
+          <div class="ag-desc">What would discovery need to surface for Jon to bring this to his institutional network with conviction? Comparable exits, defensibility, TAM, ICP.</div>
+        </div>
+        <div class="ag-time">~15 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-num">05</div>
+        <div class="ag-body">
+          <div class="ag-title">Next steps &amp; deciders</div>
+          <div class="ag-desc">Who at Dale needs to be comfortable with the scope. Path to signature. Kickoff timing.</div>
+        </div>
+        <div class="ag-time">~10 min</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Your consultants</div>
+    <h2 class="section-title">Operators first. Sellers second. Senior across both.</h2>
+    <p class="section-sub">Twenty-plus years of distribution, partnership, and capital work across U.S. golf. The operator-and-investor network this engagement actually needs.</p>
+
+    <div class="team-grid">
+      <div class="person">
+        <div class="initials">JO</div>
+        <div class="name">John Osberg</div>
+        <div class="role">Primary Consultant · WORKSTREAM B + C LEAD</div>
+        <div class="bio">A decade building distribution, partnership, and revenue engines across U.S. golf. At PGA of America: 60+ brand-partnership portfolio (Michelob Ultra, Club Car, Oakley, Tito's, Ralph Lauren RLX, Corebridge), $250K+ annual partnership revenue, scaled the PGA veteran program to $220K+ annual funding. Prior: Director at OnCore Golf, $3.5M+ in distribution revenue across national retail and golf-specialty channels.</div>
+        <div class="creds">
+          <div class="cred">PGA of America</div>
+          <div class="cred">OnCore Golf</div>
+          <div class="cred">50+ events</div>
+          <div class="cred">Partnership build</div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="initials">SC</div>
+        <div class="name">Steve Coulton</div>
+        <div class="role">Primary Consultant · WORKSTREAM A LEAD</div>
+        <div class="bio">Co-founder &amp; VP Sales at OnCore Golf — scaled to ~$5M ARR at exit, raised $2M+ in early capital, $20M+ cap base (Charles Schwab among backers). Built a 30+ rep sales network, DICK'S / Golf Galaxy + Wegmans national distribution ($2M+ big-box revenue). Structured PGA Tour / LPGA / LIV ambassador relationships. Today: founder, Coulton Ventures. Prior: Deutsche Bank Commercial Paper Trading. NYU Econ, Men's Varsity Golf.</div>
+        <div class="creds">
+          <div class="cred">Coulton Ventures</div>
+          <div class="cred">OnCore Golf</div>
+          <div class="cred">Deutsche Bank</div>
+          <div class="cred">Capital + sales</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap inner">
+    <div class="ey">The ask, plainly</div>
+    <h2>Sixty days. One named beachhead. The evidence to deploy capital with conviction — or not.</h2>
+    <div class="accent"></div>
+    <p>The cheapest way for Dale to earn conviction before the next capital cycle. The cleanest way for CaddieOS to be ready when that cycle opens. We're excited to walk it with you.</p>
+    <div class="sigline">
+      <div><b>John Osberg</b> · johnosberg@gmail.com</div>
+      <div><b>Steve Coulton</b> · coultonventures@gmail.com</div>
+      <div><b>Today · 2:00 PM ET</b></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Prepared by John Osberg &amp; Steve Coulton · with the BimRoss agent harness · June 23, 2026
+  </div>
+</footer>
+
+<script>
+  // Count-up animation for hero stats
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  function countUp(el) {
+    const target = parseFloat(el.dataset.count);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const unit = el.querySelector('.unit');
+    const unitHTML = unit ? unit.outerHTML : '';
+    const duration = 1600;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const v = target * easeOut(t);
+      const formatted = target % 1 === 0 ? Math.round(v).toString() : v.toFixed(1);
+      el.innerHTML = prefix + formatted + suffix + unitHTML;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (e.target.dataset.count) countUp(e.target);
+        if (e.target.dataset.w) e.target.style.width = e.target.dataset.w + '%';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('[data-count], [data-w], .reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
